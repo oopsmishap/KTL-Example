@@ -1,0 +1,27 @@
+[cmake]
+version = "3.10"
+cmkr-include = "cmake/cmkr.cmake"
+
+[variables]
+CMAKE_MODULE_PATH = "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+
+[project]
+name = "KTL-Example"
+languages = ["CXX"]
+include-before = ["cmake/msvc-configurations.cmake"]
+
+[fetch-content]
+ktl = { git = "https://github.com/oopsmishap/ktl" }
+
+[find-package.WDK]
+
+[template.ktl-driver]
+type = "executable"
+add-function = "wdk_add_driver"
+compile-features = ["cxx_std_20"]
+link-libraries = ["ktl::ktl"]
+
+[target.ktl-example]
+type = "ktl-driver"
+sources = ["src/**.cpp"]
+include-directories = ["include"]
